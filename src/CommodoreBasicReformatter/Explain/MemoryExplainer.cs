@@ -325,29 +325,35 @@ namespace CommodoreBasicReformatter.Explain
 
         static void AnalyseVariableAssignment(GrammarStmt block, ILookup<string, Token> variablesAsAdresses, GrammarLine line)
         {
-            var variableAssignmentOfVariableUsedAsAddress =
-                block.Content[0].Type == TokenKind.Name && variablesAsAdresses.Contains(block.Content[0].Value);
-
-            if (variableAssignmentOfVariableUsedAsAddress)
+            if (block.Content.Count > 0)
             {
-                line.Explanations
-                    .AddRange(block.Content.Skip(1)
-                        .Where(x => x.Type == TokenKind.Digit)
-                        .Where(x => C64MemoryMap.ContainsKey(x.Value))
-                        .Select(x => $"{x}={C64MemoryMap[x.Value]}"));
-            }
+                var first = block.Content[0];
 
-            var forLoopVariableAssignment =
-                (block.Content[0].Type == TokenKind.Keyword && block.Content[0].Value == "for")
-                && variablesAsAdresses.Contains(block.Content[1].Value);
+                var variableAssignmentOfVariableUsedAsAddress =
+                    first.Type == TokenKind.Name && variablesAsAdresses.Contains(first.Value);
 
-            if (forLoopVariableAssignment)
-            {
-                line.Explanations
-                    .AddRange(block.Content.Skip(2)
-                        .Where(x => x.Type == TokenKind.Digit)
-                        .Where(x => C64MemoryMap.ContainsKey(x.Value))
-                        .Select(x => $"{x}={C64MemoryMap[x.Value]}"));
+                if (variableAssignmentOfVariableUsedAsAddress)
+                {
+                    line.Explanations
+                        .AddRange(block.Content.Skip(1)
+                            .Where(x => x.Type == TokenKind.Digit)
+                            .Where(x => C64MemoryMap.ContainsKey(x.Value))
+                            .Select(x => $"{x}={C64MemoryMap[x.Value]}"));
+                }
+
+                var forLoopVariableAssignment =
+                    (first.Type == TokenKind.Keyword && first.Value == "for")
+                    && block.Content.Count > 1
+                    && variablesAsAdresses.Contains(block.Content[1].Value);
+
+                if (forLoopVariableAssignment)
+                {
+                    line.Explanations
+                        .AddRange(block.Content.Skip(2)
+                            .Where(x => x.Type == TokenKind.Digit)
+                            .Where(x => C64MemoryMap.ContainsKey(x.Value))
+                            .Select(x => $"{x}={C64MemoryMap[x.Value]}"));
+                }
             }
         }
 
