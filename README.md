@@ -1,6 +1,5 @@
 ﻿# Reformat and augment BASIC for improved readability - GUI Version
 
-![gui](cbrguiwin.jpg)
 
 This tool makes Commodore BASIC programs more readable! It supports a variety of strategies for achieving this. It adds whitespace, it breaks multiple statements into several lines and finally, it
 explains character codes and memory locations used in the code. The later is of particular importance. Unlike modern programming, accesing specific memory addresses in Commodore BASIC is used 
@@ -14,6 +13,10 @@ for playing sounds, controlling the keyboard buffer size or perhaps most famousl
 ## 1. Usage
 
     CommodoreBasicReformatter [--split-lines] [--add-explanations] <infile> <outfile>
+
+Gui version uses buttons and checkmarks.
+
+![gui](cbrguiwin.jpg)
 
 
 ## 2. Example
