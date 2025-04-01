@@ -27,7 +27,7 @@ namespace CommodoreBasicReformatter
 
         private void TransformText(object sender, EventArgs e)
         {
-           // try
+           try
             {
                 var options = new Configuration
                 {
@@ -41,10 +41,10 @@ namespace CommodoreBasicReformatter
                 var result = reformatter.Reformat(options.InputContent, options);
                 outputBox.Text = result;
             }
-            /*catch (Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Hata oluştu: " + ex.Message);
-            }*/
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
