@@ -57,6 +57,7 @@ namespace CommodoreBasicReformatter
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     inputBox.Text = File.ReadAllText(openFileDialog.FileName, Encoding.Default);
+                    this.Text = "Commodore Basic Reformatter - " + Path.GetFileName(openFileDialog.FileName);
 
                 }
             }

@@ -39,16 +39,18 @@
             // 
             // button1
             // 
-            button1.Location = new System.Drawing.Point(319, 12);
+            button1.Location = new System.Drawing.Point(300, 12);
             button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(75, 23);
+            button1.Size = new System.Drawing.Size(94, 23);
             button1.TabIndex = 0;
-            button1.Text = "Go";
+            button1.Text = "Clean Up";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // inputBox
             // 
+            inputBox.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            inputBox.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             inputBox.Location = new System.Drawing.Point(12, 41);
             inputBox.Multiline = true;
             inputBox.Name = "inputBox";
@@ -59,6 +61,7 @@
             // outputBox
             // 
             outputBox.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            outputBox.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             outputBox.Location = new System.Drawing.Point(400, 41);
             outputBox.Multiline = true;
             outputBox.Name = "outputBox";
@@ -98,6 +101,7 @@
             // 
             // button3
             // 
+            button3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             button3.Location = new System.Drawing.Point(713, 12);
             button3.Name = "button3";
             button3.Size = new System.Drawing.Size(75, 23);
@@ -119,7 +123,7 @@
             Controls.Add(inputBox);
             Controls.Add(button1);
             Name = "Form1";
-            Text = "Converter";
+            Text = "Commodore Basic Reformatter";
             ResumeLayout(false);
             PerformLayout();
         }
