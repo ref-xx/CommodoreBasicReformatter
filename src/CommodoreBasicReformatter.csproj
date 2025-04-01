@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <StartupObject>CommodoreBasicReformatter.Program</StartupObject>
+    <Authors>Kasper B. Graversen</Authors>
+    <Runtimes>win10-x64</Runtimes>
+  </PropertyGroup>
+
+</Project>
