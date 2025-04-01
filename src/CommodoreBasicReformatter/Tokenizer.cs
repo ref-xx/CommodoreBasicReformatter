@@ -66,6 +66,8 @@ namespace CommodoreBasicReformatter
 
             Token t;
 
+
+
             if ((t = ParseEOf()) != null)
                 return t;
             if ((t = ParseNewline()) != null)
@@ -83,7 +85,8 @@ namespace CommodoreBasicReformatter
             if ((t = ParseName()) != null)
                 return t;
 
-            throw new Exception("Stopped at " + pos + " ..." + Text.Substring(pos, Math.Min(25, Text.Length - pos)) + "...");
+            //throw new Exception("Stopped at " + pos + " ..." + Text.Substring(pos, Math.Min(45, Text.Length - pos)) + "...");
+            return new Token(TokenKind.Symbol, Text[pos++].ToString());
         }
 
         Token ParseEOf()
@@ -105,14 +108,34 @@ namespace CommodoreBasicReformatter
                 return null;
 
             int i = 1;
-            while (pos + i < Text.Length && char.IsDigit(Text[pos + i]))
-                i++;
+            bool hasDot = false;
 
-            var v = int.Parse(Text.Substring(pos, i));
+            while (pos + i < Text.Length)
+            {
+                char c = Text[pos + i];
 
+                if (char.IsDigit(c))
+                {
+                    i++;
+                }
+                else if (c == '.' && !hasDot)
+                {
+                    hasDot = true;
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            var numberStr = Text.Substring(pos, i);
+
+            // İstersen isFloat şeklinde ayrı bir TokenKind da ekleyebilirsin
             pos += i;
-            return new Token(TokenKind.Digit, v.ToString());
+            return new Token(TokenKind.Digit, numberStr);
         }
+
 
         Token ParseName()
         {
@@ -134,13 +157,56 @@ namespace CommodoreBasicReformatter
         {
             if (Text[pos] != '"')
                 return null;
+            if ((pos>4159) &&(pos<4200))
+            {
+                int debug = 1;
 
-            var lastQuote = Text.IndexOf('"', pos + 1);
-            var v = Text.Substring(pos, lastQuote + 1 - pos);
+            }
+            int start = pos;
+            int end;
 
-            pos += v.Length;
+            int quotePos = Text.IndexOf('"', pos + 1);
+            int newlinePos = Text.IndexOf('\n', pos);
+
+            if (quotePos == -1 && newlinePos == -1)
+            {
+                end = Text.Length;
+            }
+            else if (quotePos == -1)
+            {
+                end = newlinePos;
+            }
+            else if (newlinePos == -1)
+            {
+                end = quotePos;
+            }
+            else
+            {
+                end = Math.Min(quotePos, newlinePos);
+            }
+
+            string v;
+            if (end == -1)
+            {
+                // Kapanış tırnağı yok → satır sonuna kadar al
+                int newline = Text.IndexOf('\n', pos);
+                if (newline == -1) newline = Text.Length;
+
+                v = Text.Substring(pos, newline - pos);
+                pos = newline; // tırnak kapanmadığı için newline'e kadar geç
+            }
+            else
+            {
+                // Normal durumda: tırnaklar arasında
+                v = Text.Substring(pos, end + 1 - pos);
+                pos = end + 1;
+               // System.Diagnostics.Debug.WriteLine(v);
+
+            }
+
             return new Token(TokenKind.String, v);
         }
+
 
         Token ParseNewline()
         {

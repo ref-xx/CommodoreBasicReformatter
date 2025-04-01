@@ -50,7 +50,11 @@ namespace CommodoreBasicReformatter
 
         static string Format(GrammarStmt l)
         {
+            if (l.Content == null || l.Content.Count == 0)
+                return string.Empty;
+
             var sb = new StringBuilder();
+
             for (int i = 0; i < l.Content.Count - 1; i++)
             {
                 var current = l.Content[i];
@@ -68,5 +72,6 @@ namespace CommodoreBasicReformatter
 
             return sb.ToString();
         }
+
     }
 }

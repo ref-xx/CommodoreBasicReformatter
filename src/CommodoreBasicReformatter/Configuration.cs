@@ -2,7 +2,12 @@
 {
     public class Configuration
     {
+        // CLI kullanımında:
         public string Input, Output;
+
+        // GUI kullanımında:
+        public string InputContent;
+
         public bool SplitLines, AddExplanations;
 
         public static Configuration Parse(string[] args)

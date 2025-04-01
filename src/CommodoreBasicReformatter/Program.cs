@@ -2,11 +2,13 @@
 using System.IO;
 using System.Text;
 using CommodoreBasicReformatter.Explain;
+using System.Windows.Forms;
 
 namespace CommodoreBasicReformatter
 {
     class Program
     {
+        /*
         static void Main(string[] args)
         {
             if (args.Length < 2 && args.Length > 4)
@@ -22,6 +24,18 @@ namespace CommodoreBasicReformatter
 
             File.WriteAllBytes(options.Output, Encoding.ASCII.GetBytes(result));
         }
+        */
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+        
+
+
 
 
         static void PrintHelp()
